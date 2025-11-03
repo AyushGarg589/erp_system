@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Students | Admin Panel</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* Global and Navbar Styles (Copied from previous response) */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #3f51b5; /* Deep Indigo/Blue */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 5px 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+    color: #ffeb3b; /* Vibrant Yellow/Amber for accent */
+    border-bottom: 2px solid #ffeb3b;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffeb3b;
+    margin-right: 10px;
+    border: 2px solid white;
+    object-fit: cover;
+}
+
+/* Page Header Styles */
+.page-header {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.page-header h2 {
+    color: #3f51b5;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: #666;
+    font-style: italic;
+}
+
+
+/* --- Table Styling --- */
+.table-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow-x: auto; /* Makes table scrollable on small screens */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+thead {
+    background-color: #3f51b5; /* Primary color background */
+    color: white;
+    font-weight: 700;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #eeeeee;
+    color: #333;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light stripe effect */
+}
+
+tbody tr:hover {
+    background-color: #e8eaf6; /* Lighter blue on hover */
+}
+
+/* Action Links */
+td a {
+    color: #3f51b5;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 5px;
+    transition: color 0.3s;
+}
+
+td a:hover {
+    color: #ffeb3b; /* Accent hover color */
+}
+
+.delete-btn {
+    color: #e53935; /* Red for delete action */
+}
+
+.delete-btn:hover {
+    color: #c62828;
+}
+
+/* Hide data-label on large screens (used for mobile responsiveness) */
+td::before {
+    display: none;
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="/profile">Home</a></li>
+            <li><a href="/" class="active">Show Students</a></li>
+            <li><a href="/add_stud">Add Student</a></li>
+            <li><a href="/upd_stud">Update Student</a></li>
+        </ul>
+        <div class="profile-info">
+            <img src="/static/ERP_project_img2.webp" alt="Profile" class="profile-avatar">
+            <span>Welcome, {{ name }}</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h2>Current Student Records</h2>
+            <p>A list of all active students across different branches and sections.</p>
+        </header>
+
+        <section class="table-section">
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Roll Number</th>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Section</th>
+                            <!-- <th>Actions</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Roll Number">S001</td>
+                            <td data-label="Name">Alia Bhatt</td>
+                            <td data-label="Branch">Computer Science</td>
+                            <td data-label="Section">A</td>
+                            <!-- <td data-label="Actions"><a href="#">Edit</a> | <a href="#" class="delete-btn">Delete</a></td> -->
+                        </tr>
+
+                        <!-- <tbody>
+        {% for student in students %}
+        <tr>
+            <td data-label="Roll Number">{{ student.roll }}</td>
+            <td data-label="Name">{{ student.name }}</td>
+            <td data-label="Branch">{{ student.branch }}</td>
+            <td data-label="Section">{{ student.section }}</td>
+            <td data-label="Actions">
+                <a href="/edit/{{ student.roll }}">Edit</a> |
+                <a href="/delete/{{ student.roll }}" class="delete-btn">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody> -->
+
+                      
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    
+</body>
+</html>

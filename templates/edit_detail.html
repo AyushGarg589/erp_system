@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Details | Admin Panel</title>
+    <!-- Use the same Roboto font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* --- Navbar Styling (from previous responses) --- */
+.navbar {
+    background-color: #3f51b5; /* Deep Indigo/Blue */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 5px 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+    color: #ffeb3b; /* Vibrant Yellow/Amber for accent */
+    border-bottom: 2px solid #ffeb3b;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffeb3b;
+    margin-right: 10px;
+    border: 2px solid white;
+    object-fit: cover;
+}
+
+/* --- Page Header Styling (from previous responses) --- */
+.page-header {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.page-header h2 {
+    color: #3f51b5;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: #666;
+    font-style: italic;
+}
+
+/* --- Form Specific Styling --- */
+.form-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px; /* Constrain form width */
+    margin: 0 auto; /* Center the form card */
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.input-group input[type="text"],
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Added background-color transition */
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #3f51b5; /* Primary color on focus */
+    box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+    outline: none;
+}
+
+/* Styling for Read-only fields */
+.input-group input[readonly] {
+    background-color: #eceff1; /* Light grey background for disabled/read-only */
+    color: #777;
+    cursor: not-allowed;
+}
+
+.input-group input:not([readonly]):focus,
+.input-group select:focus {
+    /* Reapply focus effect for editable fields */
+    border-color: #3f51b5;
+    box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+}
+
+/* --- Status Message Styling (New) --- */
+.status-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    display: none; /* Hidden by default */
+}
+
+.status-success {
+    /* Use a complementary green color for success */
+    background-color: #e8f5e9; /* Very Light Green */
+    color: #4caf50; /* Strong Green Text */
+    border-color: #4caf50; /* Green Border */
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.1);
+}
+
+.status-success::before {
+    content: '✓';
+    margin-right: 10px;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+
+.submit-button,
+.cancel-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button {
+    background-color: #3f51b5; /* Primary blue for submit */
+    color: white;
+    margin-right: 10px;
+}
+
+.submit-button:hover {
+    background-color: #303f9f; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.cancel-button {
+    background-color: #9e9e9e; /* Grey for cancel */
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #757575; /* Darker grey on hover */
+    transform: translateY(-2px);
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="/profile">Home</a></li>
+            <li><a href="/show_students">Show Students</a></li>
+            <li><a href="/add_stud">Add Student</a></li>
+            <!-- New active link for Edit Student -->
+            <li><a href="/edit_stud" class="active">Edit Student</a></li>
+        </ul>
+        <div class="profile-info">
+            <img src="https://placehold.co/40x40/ffeb3b/3f51b5?text=A" alt="Profile" class="profile-avatar">
+            <span>Welcome, Admin</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h2>Edit Existing Student Profile</h2>
+            <p>Modify the academic details for student **John Doe (Roll: 2023-IT-042)**.</p>
+        </header>
+
+        <section class="form-section">
+            <div class="form-card">
+
+                <!-- Status Message Container (New) -->
+                <div id="status-message" class="status-message">
+                    <!-- Message content will be set by JavaScript -->
+                </div>
+
+                <!-- Action should point to an update endpoint -->
+                <form id="edit-form" action="/update_student_details" method="POST">
+                    
+                    <!-- 1. Student Name Input (Pre-filled) -->
+                    <div class="input-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" value="John Doe" required>
+                    </div>
+
+                    <!-- 2. Roll Number (Read-only, Pre-filled) -->
+                    <div class="input-group">
+                        <label for="rollNumber">Roll Number</label>
+                        <input type="text" id="rollNumber" name="rollNumber" value="2023-IT-042" readonly required>
+                    </div>
+
+                    <!-- 3. Branch Dropdown (Pre-selected) -->
+                    <div class="input-group">
+                        <label for="branch">Branch</label>
+                        <select id="branch" name="branch" required>
+                            <option value="">Select Branch</option>
+                            <!-- The 'selected' attribute pre-selects the current value -->
+                            <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Information Technology" selected>Information Technology</option> 
+                        </select>
+                    </div>
+
+                    <!-- 4. Section Input (Pre-filled) -->
+                    <div class="input-group">
+                        <label for="section">Section</label>
+                        <input type="text" id="section" name="section" value="B" placeholder="Section of Student" required>
+                    </div>
+
+                    <button type="submit" class="submit-button">Save Changes</button>
+                    <!-- Changed reset button to a cancel/back button -->
+                    <button type="button" class="cancel-button" onclick="history.back()">Cancel Edit</button> 
+                </form>
+            </div>
+        </section>
+    </div>
+    
+    <!-- JavaScript for form submission handling and redirection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('edit-form');
+            const statusMessage = document.getElementById('status-message');
+            const submitButton = form.querySelector('.submit-button');
+            
+            // The URL to redirect to after a successful save. 
+            // I've changed this from '/show_students' to '/profile' as an example.
+            const redirectUrl = '/profile'; 
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Stop default form submission (page reload)
+                
+                // 1. Prepare and show loading/saving state
+                statusMessage.style.display = 'block';
+                statusMessage.className = 'status-message status-success';
+                statusMessage.textContent = 'Saving changes, please wait...';
+                
+                submitButton.disabled = true;
+                submitButton.textContent = 'Processing...';
+
+                // 2. Simulate a successful backend update delay (2 seconds)
+                setTimeout(() => {
+                    // Update status text just before redirecting (for user feedback)
+                    statusMessage.textContent = 'Changes saved. Redirecting...';
+                    
+                    // 3. Perform the redirection
+                    window.location.href = redirectUrl;
+                }, 2000); // 2 second "save" delay
+            });
+        });
+    </script>
+
+</body>
+</html>

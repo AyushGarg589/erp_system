@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Student | Admin Panel</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* --- Navbar Styling (from previous responses) --- */
+.navbar {
+    background-color: #3f51b5; /* Deep Indigo/Blue */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 5px 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+    color: #ffeb3b; /* Vibrant Yellow/Amber for accent */
+    border-bottom: 2px solid #ffeb3b;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffeb3b;
+    margin-right: 10px;
+    border: 2px solid white;
+    object-fit: cover;
+}
+
+/* --- Page Header Styling (from previous responses) --- */
+.page-header {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.page-header h2 {
+    color: #3f51b5;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: #666;
+    font-style: italic;
+}
+
+/* --- Form Specific Styling --- */
+.form-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px; /* Constrain form width */
+    margin: 0 auto; /* Center the form card */
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"], /* If you decide to use number input for roll number */
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #3f51b5; /* Primary color on focus */
+    box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+    outline: none;
+}
+
+.submit-button,
+.reset-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button {
+    background-color: #3f51b5; /* Primary blue for submit */
+    color: white;
+    margin-right: 10px;
+}
+
+.submit-button:hover {
+    background-color: #303f9f; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.reset-button {
+    background-color: #9e9e9e; /* Grey for reset */
+    color: white;
+}
+
+.reset-button:hover {
+    background-color: #757575; /* Darker grey on hover */
+    transform: translateY(-2px);
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="/profile">Home</a></li>
+            <li><a href="/show_students">Show Students</a></li>
+            <li><a href="/add_stud" class="active">Add Student</a></li>
+            <li><a href="/upd_stud" class="active">Update Student</a></li>
+        </ul>
+        <div class="profile-info">
+            <img src="/static/ERP_project_img2.webp" alt="Profile" class="profile-avatar">
+            <span>Welcome, Admin</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h2>Add New Student</h2>
+            <p>Fill in the details below to enroll a new student.</p>
+        </header>
+
+        <section class="form-section">
+            <div class="form-card">
+                <form action="/suces_add" method="POST">
+                    <div class="input-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" placeholder="Name of Student" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="rollNumber">Roll Number</label>
+                        <input type="text" pattern="\d{13}" maxlength="13" id="rollNumber" name="rollNumber" placeholder="Roll Number of Student" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="branch">Branch</label>
+                        <select id="branch" name="branch" required>
+                            <option value="">Select Branch</option>
+                            <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Information Technology">Information Technology</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="section">Section</label>
+                        <input type="text" maxlength="1" id="section" name="section" placeholder="Section of Student" required>
+                    </div>
+
+                   
+
+                    <button type="submit" class="submit-button">Add Student</button>
+
+                
+
+                    <button type="reset" class="reset-button">Reset Form</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    
+</body>
+</html>

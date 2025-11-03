@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Login</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+    /* Trendy Light Background with Subtle Gradient */
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); /* Very light, soft blue/grey gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333333; /* Dark text for light background */
+}
+
+.login-container {
+    /* Retaining Glassmorphism on a light base */
+    background: rgba(255, 255, 255, 0.7); /* More transparent white */
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px); 
+    
+    padding: 40px;
+    border-radius: 16px; /* Slightly more rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.9); /* Sharper white border */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    width: 320px;
+    text-align: center;
+    
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+h1 {
+    margin-bottom: 30px;
+    color: #4a148c; /* Deep Purple Accent */
+    font-weight: 600; 
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555555;
+    font-size: 0.9em;
+}
+
+/* Modern Input Styling */
+.input-group input[type="text"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.9); /* Nearly white background */
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #333333; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input Focus Glow Effect with Purple */
+.input-group input:focus {
+    border-color: #9c27b0; /* Lighter Purple */
+    outline: none;
+    box-shadow: 0 0 8px rgba(156, 39, 176, 0.3);
+}
+
+/* Deep Purple Gradient Button */
+.login-button {
+    background: linear-gradient(90deg, #673ab7 0%, #4a148c 100%); /* Purple gradient */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 25px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-button:hover {
+    /* Subtle Hover Effect */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(103, 58, 183, 0.3);
+}
+        /* Embedding the font for simplicity, though best practice is to use the link tag above */
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Admin Dashboard</h1>
+        <form action="/profile" method="POST">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">Secure Login</button>
+        </form>
+    </div>
+</body>
+</html>

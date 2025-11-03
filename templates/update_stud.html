@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Search & Records | Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Theme Variables */
+        :root {
+            --primary-color: #3f51b5; /* Deep Indigo/Blue */
+            --accent-color: #ffeb3b; /* Vibrant Yellow/Amber */
+            --background-color: #f4f7f6;
+            --card-background: #ffffff;
+            --text-color: #333;
+            --light-border: #e0e0e0;
+        }
+
+        /* Global and Layout Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            padding: 5px 0;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            margin-right: 10px;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        /* Page Header Styles */
+        .page-header {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-header h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* --- Search Form Styles --- */
+        .search-area {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .search-form-grid {
+            /* Responsive grid layout for inputs */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-actions {
+            display: flex;
+            justify-content: flex-end; /* Push buttons to the right */
+            gap: 10px;
+        }
+
+        .search-input, .select-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 15px;
+            border: 1px solid var(--light-border);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .search-input:focus, .select-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
+        }
+
+        .search-button {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #303f9f; /* Darker primary color */
+        }
+        
+        .reset-button {
+            padding: 12px 25px;
+            background-color: #757575; /* Gray for secondary action */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .reset-button:hover {
+            background-color: #616161;
+        }
+
+        /* --- Table Styles --- */
+        .table-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow-x: auto; /* Makes table scrollable on small screens */
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        thead {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eeeeee;
+            color: var(--text-color);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light stripe effect */
+        }
+
+        tbody tr:hover {
+            background-color: #e8eaf6; /* Lighter blue on hover */
+        }
+
+        /* Action Links */
+        td a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 5px;
+            transition: color 0.3s;
+        }
+
+        td a:hover {
+            color: var(--accent-color);
+        }
+        .delete-btn {
+            color: #e53935; /* Red for delete action */
+        }
+
+        .delete-btn:hover {
+            color: #c62828;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="/profile">Home</a></li>
+            <li><a href="/show_stud">Show Students</a></li>
+            <li><a href="/" class="active">Student Search</a></li>
+            <li><a href="/add_stud">Add Student</a></li>
+        </ul>
+        <div class="profile-info">
+            <!-- Using a placeholder image for demo -->
+            <img src="/static/ERP_project_img2.webp" alt="Profile" class="profile-avatar">
+            <span>Welcome, {{ name }}</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h2>Search Student Records</h2>
+            <p>Enter details below to find specific student records.</p>
+        </header>
+
+        <!-- Search Input and Filters -->
+        <div class="search-area">
+            <div class="search-form-grid">
+                <input type="text" id="rollInput" placeholder="Roll Number" class="search-input">
+                <input type="text" id="nameInput" placeholder="Student Name" class="search-input">
+                <select id="branchSelect" class="search-input select-input">
+                    <option value="">-- All Branches --</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="EE">Electrical Engineering</option>
+                    <option value="ME">Mechanical Engineering</option>
+                </select>
+                <select id="sectionSelect" class="search-input select-input">
+                    <option value="">-- All Sections --</option>
+                    <option value="A">Section A</option>
+                    <option value="B">Section B</option>
+                    <option value="C">Section C</option>
+                </select>
+            </div>
+            
+            <div class="search-actions">
+                <button onclick="resetForm()" class="reset-button">
+                    Clear Filters
+                </button>
+                <button onclick="performSearch()" class="search-button">
+                    <svg style="display:inline; width:1.2em; height:1.2em; margin-right:5px; vertical-align:text-bottom;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    Search Students
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Results Area -->
+        <h3 style="color: var(--text-color); margin-bottom: 15px; font-weight: 500;">
+            Search Results: <span id="resultsCount">0 students found</span>
+        </h3>
+
+        <section class="table-card">
+            <div class="table-responsive">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Roll Number</th>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Section</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTableBody">
+                        <!-- Data will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Mock data to simulate fetching records from a database
+        const MOCK_STUDENTS = [
+            { roll: 'S2023001', name: 'Alia Bhatt', branch: 'CS', section: 'A', status: 'Active' },
+            { roll: 'S2023045', name: 'Rishabh Sharma', branch: 'CS', section: 'B', status: 'Active' },
+            { roll: 'S2023088', name: 'Vijay Kumar', branch: 'EE', section: 'A', status: 'Inactive' },
+            { roll: 'S2023112', name: 'Priya Singh', branch: 'ME', section: 'C', status: 'Active' },
+            { roll: 'S2023150', name: 'Mohan Das', branch: 'CS', section: 'A', status: 'Active' },
+            { roll: 'S2023180', name: 'Neha Reddy', branch: 'EE', section: 'B', status: 'Active' },
+        ];
+
+        /**
+         * Filters the mock student data based on the form inputs and renders the results.
+         */
+        function performSearch() {
+            // 1. Get query values (converted to lowercase for case-insensitive matching)
+            const roll = document.getElementById('rollInput').value.trim().toLowerCase();
+            const name = document.getElementById('nameInput').value.trim().toLowerCase();
+            const branch = document.getElementById('branchSelect').value; // Case-sensitive (dropdown value)
+            const section = document.getElementById('sectionSelect').value; // Case-sensitive (dropdown value)
+
+            console.log('Search Params:', { roll, name, branch, section });
+
+            // 2. Filter mock data
+            const filteredResults = MOCK_STUDENTS.filter(student => {
+                const matchesRoll = !roll || student.roll.toLowerCase().includes(roll);
+                const matchesName = !name || student.name.toLowerCase().includes(name);
+                const matchesBranch = !branch || student.branch === branch;
+                const matchesSection = !section || student.section === section;
+                
+                return matchesRoll && matchesName && matchesBranch && matchesSection;
+            });
+
+            // 3. Render results in the table
+            renderResults(filteredResults);
+        }
+
+        /**
+         * Renders the filtered student list into the results table.
+         * @param {Array<Object>} results - The list of student objects to display.
+         */
+        function renderResults(results) {
+            const tbody = document.getElementById('resultsTableBody');
+            const resultsCountSpan = document.getElementById('resultsCount');
+            tbody.innerHTML = ''; // Clear previous results
+
+            if (results.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #777; padding: 30px;">No students match the search criteria.</td></tr>`;
+            } else {
+                results.forEach(student => {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${student.roll}</td>
+                        <td>${student.name}</td>
+                        <td>${student.branch}</td>
+                        <td>${student.section}</td>
+                        <td style="color: ${student.status === 'Active' ? 'green' : '#e53935'}; font-weight: 500;">${student.status}</td>
+                        <td>
+                            <a href="/edit_info">Edit</a> | 
+                            <a href="/delete/${student.roll}" class="delete-btn">Delete</a>
+                        </td>
+                    `;
+                });
+            }
+
+            resultsCountSpan.textContent = `${results.length} students found`;
+        }
+
+        /**
+         * Clears all form fields and re-runs the search (showing all records).
+         */
+        function resetForm() {
+            document.getElementById('rollInput').value = '';
+            document.getElementById('nameInput').value = '';
+            document.getElementById('branchSelect').value = '';
+            document.getElementById('sectionSelect').value = '';
+            performSearch(); 
+        }
+
+        // Initial load: show all students when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            performSearch();
+        });
+    </script>
+</body>
+</html>

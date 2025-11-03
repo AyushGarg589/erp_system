@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Added! | Confirmation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Global Styles (Copied from Home Page) */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* --- Navbar Styling (Copied from Home Page) --- */
+        .navbar {
+            background-color: #3f51b5; /* Deep Indigo/Blue */
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            padding: 5px 0;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        /* Key Styles for Active Link */
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #ffeb3b; /* Vibrant Yellow/Amber for accent */
+            border-bottom: 2px solid #ffeb3b;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ffeb3b; 
+            margin-right: 10px;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        /* --- Confirmation Page Styles (Your Original Styles) --- */
+        .confirmation-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+
+        .confirmation-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .confirmation-icon {
+            font-size: 4.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-card h1 {
+            color: #3f51b5;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .detail-message {
+            font-style: italic;
+            color: #3f51b5;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .primary-button {
+            background-color: #ffeb3b;
+            color: #3f51b5;
+            border: 2px solid #ffeb3b;
+        }
+
+        .primary-button:hover {
+            background-color: #fdd835;
+            box-shadow: 0 4px 10px rgba(255, 235, 59, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: #3f51b5;
+            border: 2px solid #3f51b5;
+        }
+
+        .secondary-button:hover {
+            background-color: #e8eaf6;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="/profile">Home</a></li>
+            <li><a href="/show_students">Show Students</a></li>
+            <li><a href="/add_stud" class="active">Add Student</a></li> 
+        </ul>
+        <div class="profile-info">
+            <img src="/static/ERP_project_img2.webp" alt="Profile" class="profile-avatar">
+            <span>Welcome, Admin</span>
+        </div>
+    </nav>
+
+    <div class="container confirmation-center">
+        <div class="confirmation-card">
+            <i class="fas fa-check-circle confirmation-icon"></i>
+            <h1>Success!</h1>
+            <p>The new student record has been successfully created in the database.</p>
+            <p class="detail-message">You can now view the new entry in the student list.</p>
+            
+            <div class="action-buttons">
+                <a href="/show_students" class="action-button primary-button">View Student List</a>
+                <a href="/add_stud" class="action-button secondary-button">Add Another Student</a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
