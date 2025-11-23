@@ -8,7 +8,7 @@ app.secret_key = "Admin"
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Ayushaggarwal@09'
+app.config['MYSQL_PASSWORD'] = 'your_db_pass'
 app.config['MYSQL_DB'] = 'Students'
 
 
@@ -112,4 +112,5 @@ def edit_info():
 
 
 if __name__ == "__main__":
+
     app.run(debug = True)
